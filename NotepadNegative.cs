@@ -166,7 +166,7 @@ namespace Lab5NotepadNegative
         /// <param name="e"></param>
         private void AboutClick(object sender, EventArgs e)
         {
-
+            MessageBox.Show(" NETD 2202 \n\n Lab 5 \n\n Notepad Negative Version 1.0 \n\n H. Lovering");
         }
         #endregion
 
