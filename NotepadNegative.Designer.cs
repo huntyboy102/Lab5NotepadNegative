@@ -32,7 +32,6 @@ namespace Lab5NotepadNegative
             this.components = new System.ComponentModel.Container();
             this.textBoxEditor = new System.Windows.Forms.TextBox();
             this.menuMain = new System.Windows.Forms.MenuStrip();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,11 +39,13 @@ namespace Lab5NotepadNegative
             this.menuFileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,6 +93,7 @@ namespace Lab5NotepadNegative
             this.menuFileNew.Size = new System.Drawing.Size(146, 22);
             this.menuFileNew.Text = "&New";
             this.menuFileNew.ToolTipText = "Click to create a new file";
+            this.menuFileNew.Click += new System.EventHandler(this.FileNew);
             // 
             // menuFileOpen
             // 
@@ -100,6 +102,7 @@ namespace Lab5NotepadNegative
             this.menuFileOpen.Size = new System.Drawing.Size(146, 22);
             this.menuFileOpen.Text = "&Open";
             this.menuFileOpen.ToolTipText = "Click to open a text file";
+            this.menuFileOpen.Click += new System.EventHandler(this.OpenFile);
             // 
             // menuFileSave
             // 
@@ -108,6 +111,7 @@ namespace Lab5NotepadNegative
             this.menuFileSave.Size = new System.Drawing.Size(146, 22);
             this.menuFileSave.Text = "&Save";
             this.menuFileSave.ToolTipText = "Click to save";
+            this.menuFileSave.Click += new System.EventHandler(this.SaveClick);
             // 
             // menuFileSaveAs
             // 
@@ -115,6 +119,7 @@ namespace Lab5NotepadNegative
             this.menuFileSaveAs.Size = new System.Drawing.Size(146, 22);
             this.menuFileSaveAs.Text = "Save &As";
             this.menuFileSaveAs.ToolTipText = "Click to select a specific location to save a file to";
+            this.menuFileSaveAs.Click += new System.EventHandler(this.FileSaveAs);
             // 
             // menuFileExit
             // 
@@ -122,56 +127,72 @@ namespace Lab5NotepadNegative
             this.menuFileExit.Size = new System.Drawing.Size(146, 22);
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.ToolTipText = "Click to close the application";
+            this.menuFileExit.Click += new System.EventHandler(this.ExitClick);
             // 
             // menuEdit
             // 
             this.menuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuEditCopy,
             this.menuEditPaste,
-            this.menuEditCut});
+            this.menuEditCut,
+            this.menuEditSelectAll});
             this.menuEdit.Name = "menuEdit";
             this.menuEdit.Size = new System.Drawing.Size(39, 20);
             this.menuEdit.Text = "&Edit";
             this.menuEdit.ToolTipText = "Click for editing tool";
             // 
-            // menuHelp
-            // 
-            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.About});
-            this.menuHelp.Name = "menuHelp";
-            this.menuHelp.Size = new System.Drawing.Size(44, 20);
-            this.menuHelp.Text = "&Help";
-            this.menuHelp.ToolTipText = "Click for help with the program";
-            // 
-            // About
-            // 
-            this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(163, 22);
-            this.About.Text = "menuHelpAbout";
-            // 
             // menuEditCopy
             // 
             this.menuEditCopy.Name = "menuEditCopy";
             this.menuEditCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menuEditCopy.Size = new System.Drawing.Size(180, 22);
+            this.menuEditCopy.Size = new System.Drawing.Size(164, 22);
             this.menuEditCopy.Text = "&Copy";
             this.menuEditCopy.ToolTipText = "Click to copy text";
+            this.menuEditCopy.Click += new System.EventHandler(this.CopyClick);
             // 
             // menuEditPaste
             // 
             this.menuEditPaste.Name = "menuEditPaste";
             this.menuEditPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.menuEditPaste.Size = new System.Drawing.Size(180, 22);
+            this.menuEditPaste.Size = new System.Drawing.Size(164, 22);
             this.menuEditPaste.Text = "&Paste";
             this.menuEditPaste.ToolTipText = "Click to paste text";
+            this.menuEditPaste.Click += new System.EventHandler(this.PasteClick);
             // 
             // menuEditCut
             // 
             this.menuEditCut.Name = "menuEditCut";
             this.menuEditCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.menuEditCut.Size = new System.Drawing.Size(144, 22);
+            this.menuEditCut.Size = new System.Drawing.Size(164, 22);
             this.menuEditCut.Text = "C&ut";
             this.menuEditCut.ToolTipText = "Click to cut text";
+            this.menuEditCut.Click += new System.EventHandler(this.CutClick);
+            // 
+            // menuEditSelectAll
+            // 
+            this.menuEditSelectAll.Name = "menuEditSelectAll";
+            this.menuEditSelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.menuEditSelectAll.Size = new System.Drawing.Size(164, 22);
+            this.menuEditSelectAll.Text = "Select &All";
+            this.menuEditSelectAll.ToolTipText = "Click to select all text";
+            this.menuEditSelectAll.Click += new System.EventHandler(this.SelectAllClick);
+            // 
+            // menuHelp
+            // 
+            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuHelpAbout});
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(44, 20);
+            this.menuHelp.Text = "&Help";
+            this.menuHelp.ToolTipText = "Click for help with the program";
+            // 
+            // menuHelpAbout
+            // 
+            this.menuHelpAbout.Name = "menuHelpAbout";
+            this.menuHelpAbout.Size = new System.Drawing.Size(107, 22);
+            this.menuHelpAbout.Text = "&About";
+            this.menuHelpAbout.ToolTipText = "Click to get information about the text editor";
+            this.menuHelpAbout.Click += new System.EventHandler(this.AboutClick);
             // 
             // formNotepadNegative
             // 
@@ -207,7 +228,8 @@ namespace Lab5NotepadNegative
         private System.Windows.Forms.ToolStripMenuItem menuEditCopy;
         private System.Windows.Forms.ToolStripMenuItem menuEditPaste;
         private System.Windows.Forms.ToolStripMenuItem menuEditCut;
-        private System.Windows.Forms.ToolStripMenuItem About;
+        private System.Windows.Forms.ToolStripMenuItem menuHelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem menuEditSelectAll;
     }
 }
 
